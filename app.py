@@ -102,6 +102,7 @@ def get_newest_data():
                       data_spider.columns = index_
                       data = pd.concat((data, data_spider), axis=0)
                       time.sleep(5)
+                      print("get data")
                 except:
                      print("no data")
             if new_data.empty:
