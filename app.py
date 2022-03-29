@@ -225,16 +225,13 @@ if __name__ == '__main__':
     result = regressor.predict(df_new_data_scaled)
     df_result["date"] = date_list
     final = []
-    elec = 3400
+    elec = 34000
     for data in result:
-        data[0] = data[0]/10
         operating_reserve = elec - data[0]
-        if operating_reserve < 0:
-            final.append(287)
-        elif operating_reserve < 150:
-            final.append(287)
-        elif operating_reserve > 700:
-            final.append(500)
+        if operating_reserve < 1500:
+            final.append(2870)
+        elif operating_reserve > 7000:
+            final.append(5000)
         else:
             final.append(elec-data[0])
         # final.append(data[0])
