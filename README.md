@@ -1,5 +1,4 @@
 # COMPETITIONS_IN_DATA_HW1
-# ReadMe
 
 ### 預測目標
 
