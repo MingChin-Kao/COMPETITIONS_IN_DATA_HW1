@@ -8,7 +8,7 @@
 
 透過台電網站觀察 [https://www.taipower.com.tw/d006/loadGraph/loadGraph/load_reserve_.html](https://www.taipower.com.tw/d006/loadGraph/loadGraph/load_reserve_.html) ，系統運轉尖峰能力在前半年的時間大約會落在 3000~3500(萬瓩)，假定為一定值，故本模型將以預測系統瞬時尖峰負載為目標。透過系統運轉尖峰能力(定值)減掉預測系統尖峰負載，最後加上一些限制，作為最後的輸出答案。
 
-![alt text](notion://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd7300c97-876a-4eb4-b1fa-42ccc009c3b3%2FUntitled.png?table=block&id=f8f19ea7-3ee2-4c41-9504-29a2f9f74c77&spaceId=414ce2ae-3e33-44bb-9ed2-de209425b610&width=2000&userId=54b2ed89-068e-4ef8-a7ed-964ec9ae6f4c&cache=v2)
+![image](notion://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd7300c97-876a-4eb4-b1fa-42ccc009c3b3%2FUntitled.png?table=block&id=f8f19ea7-3ee2-4c41-9504-29a2f9f74c77&spaceId=414ce2ae-3e33-44bb-9ed2-de209425b610&width=2000&userId=54b2ed89-068e-4ef8-a7ed-964ec9ae6f4c&cache=v2)
 
 ### 資料集、資料前處理
 
