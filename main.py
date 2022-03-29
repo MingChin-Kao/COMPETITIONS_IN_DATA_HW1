@@ -70,52 +70,53 @@ def get_newest_data():
     data = pd.DataFrame(columns=index_)
     new_data = pd.DataFrame()
     file_name = 0
-    # try:
-    for idxx, k in enumerate(country.keys()):
-        data = pd.DataFrame()
-        for y in years:
-          for m in months:
-            url = 'https://tianqi.2345.com/Pc/GetHistory?areaInfo[areaId]='+ str(country[k])+'&areaInfo[areaType]=2&date[year]='+str(y)+'&date[month]='+str(m)
-            response = requests.get(url=url)
-            response.encoding='utf-8' 
-            if response.status_code == 200:
-              html_str = json.loads(response.text)['data']
-              soup = BeautifulSoup(html_str, 'lxml')
-            try:
-                tr = soup.table.select("tr")
-                for i in tr[1:]:
-                  td  = i.select('td')
-                  tmp = []
-                  work_day = 1
-                  for idx, j in enumerate(td[0:3]):
-                     j = re.sub('<.*?>', "", str(j))
-                     if idx == 0:
-                       j = str(j).split(" ")
-                       new_j = j[0]
-                       work_day = is_work_day(new_j)
-                     else:
-                       new_j = str(j).replace("°", "")
-                     tmp.append(new_j)
-                     if idx == 2:
-                       tmp.append(work_day)
-                  data_spider = pd.DataFrame(tmp).T
-                  data_spider.columns = index_
-                  data = pd.concat((data, data_spider), axis=0)
-                  time.sleep(5)
-            except:
-                 print("no data")
-        if new_data.empty:
-            new_data = data
-        else:
-            new_data = pd.merge(new_data, data, on='date')
-        #print("new data is ", new_data)
-    new_data = new_data.reset_index(drop=True)
-    new_data.to_csv(file_name, encoding='utf_8_sig')
-    file_name = "tempture_data.csv"
-    print(file_name + " save success!")
-    print("get newest done!")
-    # except:
-    #     print("error to get newest weather data....")
+    try:
+        for idxx, k in enumerate(country.keys()):
+            data = pd.DataFrame()
+            for y in years:
+              for m in months:
+                url = 'https://tianqi.2345.com/Pc/GetHistory?areaInfo[areaId]='+ str(country[k])+'&areaInfo[areaType]=2&date[year]='+str(y)+'&date[month]='+str(m)
+                response = requests.get(url=url)
+                response.encoding='utf-8' 
+                if response.status_code == 200:
+                  html_str = json.loads(response.text)['data']
+                  soup = BeautifulSoup(html_str, 'lxml')
+                try:
+                    tr = soup.table.select("tr")
+                    for i in tr[1:]:
+                      td  = i.select('td')
+                      tmp = []
+                      work_day = 1
+                      for idx, j in enumerate(td[0:3]):
+                         j = re.sub('<.*?>', "", str(j))
+                         if idx == 0:
+                           j = str(j).split(" ")
+                           new_j = j[0]
+                           work_day = is_work_day(new_j)
+                         else:
+                           new_j = str(j).replace("°", "")
+                         tmp.append(new_j)
+                         if idx == 2:
+                           tmp.append(work_day)
+                      data_spider = pd.DataFrame(tmp).T
+                      data_spider.columns = index_
+                      data = pd.concat((data, data_spider), axis=0)
+                      time.sleep(5)
+                except:
+                     print("no data")
+            if new_data.empty:
+                new_data = data
+            else:
+                new_data = pd.merge(new_data, data, on='date')
+            #print("new data is ", new_data)
+        file_name = "tempture_data.csv"
+        new_data = new_data.reset_index(drop=True)
+        new_data.to_csv(file_name, encoding='utf_8_sig')
+        print(file_name + " save success!")
+        print("get newest done!")
+    except:
+        file_name = 0
+        print("error to get newest weather data....")
 
     if file_name != 0:
         startDate = "2022-03-30"
@@ -129,7 +130,7 @@ def get_newest_data():
         predict_date = create_assist_date(startDate, endDate)
         predict_date_dataframe = pd.DataFrame()
         predict_date_dataframe["date"] = predict_date
-
+        file_name = "tempture_data.csv" 
         tp_data = pd.read_csv(file_name)
         tp_df = pd.DataFrame(index=None)
         tp_df = pd.concat([tp_df,tp_data],ignore_index=True)
